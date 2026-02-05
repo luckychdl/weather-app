@@ -6,7 +6,7 @@ export function useLocationSearch() {
 
   const trimmed = keyword.trim();
 
-  const results = trimmed ? searchLocations(locationIndex, trimmed, 20) : [];
+  const results = trimmed ? searchLocations(locationIndex, trimmed) : [];
 
   return {
     keyword,

@@ -11,7 +11,6 @@ export function useCurrentLocation() {
   // ✅ 동기 판단은 effect 밖에서
   const isSupported =
     typeof navigator !== "undefined" && !!navigator.geolocation;
-
   // ✅ 초기 상태로 분기
   const [status, setStatus] = useState<Status>(
     isSupported ? "loading" : "error",
@@ -23,6 +22,7 @@ export function useCurrentLocation() {
 
     navigator.geolocation.getCurrentPosition(
       (pos) => {
+        console.log(pos, "pos");
         setCoords({
           lat: pos.coords.latitude,
           lon: pos.coords.longitude,

@@ -1,17 +1,18 @@
 import { useCurrentLocation } from "@/features/detect-current-location";
 import { useWeatherByLatLon } from "@/entities/weather";
-import { HourlyList } from "./hourly-list";
+
+import { HourlyList, WeatherSummary } from "@/entities/weather";
 
 export function CurrentWeatherWidget() {
   const { status, coords } = useCurrentLocation();
   const weather = useWeatherByLatLon(coords?.lat, coords?.lon);
-
+  console.log(weather?.data, "weather");
   return (
     <section className="mx-auto max-w-3xl p-4">
       <h1 className="text-2xl font-bold">현재 위치 날씨</h1>
 
       {/* 위치 */}
-      <div className="mt-4 rounded border p-4 text-sm">
+      <div className="mt-4 rounded  p-4 text-sm">
         {status === "loading" && <p>현재 위치를 가져오는 중입니다.</p>}
         {status === "error" && (
           <p className="text-red-600">위치 정보를 가져올 수 없습니다.</p>
@@ -19,7 +20,7 @@ export function CurrentWeatherWidget() {
       </div>
 
       {/* 날씨 */}
-      <div className="mt-4 rounded border p-4">
+      <div className="mt-4 rounded  ">
         <h2 className="text-lg font-semibold">날씨 정보</h2>
 
         {weather.isLoading && (
@@ -32,15 +33,8 @@ export function CurrentWeatherWidget() {
           </p>
         )}
 
-        {weather.data && (
-          <div className="mt-3 space-y-2 text-sm">
-            <div>현재 기온: {Math.round(weather.data.temp)}°C</div>
-            <div>최저 기온: {Math.round(weather.data.min)}°C</div>
-            <div>최고 기온: {Math.round(weather.data.max)}°C</div>
-
-            <HourlyList hourly={weather.data.hourly} />
-          </div>
-        )}
+        {weather.data && <WeatherSummary weather={weather.data} />}
+        {weather.data && <HourlyList hourly={weather.data.hourly} />}
       </div>
     </section>
   );
