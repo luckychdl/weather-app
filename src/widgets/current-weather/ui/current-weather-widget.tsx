@@ -6,6 +6,7 @@ import { HourlyList, WeatherSummary } from "@/entities/weather";
 export function CurrentWeatherWidget() {
   const { status, coords, request } = useCurrentLocation();
   const weather = useWeatherByLatLon(coords?.lat, coords?.lon);
+
   return (
     <section className="mx-auto max-w-3xl p-4">
       <h1 className="text-2xl font-bold">현재 위치 날씨</h1>

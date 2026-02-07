@@ -5,7 +5,7 @@ type Props = {
 export function WeatherSummary({ weather }: Props) {
   return (
     <>
-      <div className="flex w-full border gap-x-16 py-2 px-4 rounded-lg justify-center mt-2">
+      <div className="flex w-full border md:gap-x-16  gap-x-4 py-2 px-4 rounded-lg justify-center mt-2">
         {weather.iconUrl && (
           <img src={weather.iconUrl} alt="weather icon" className="w-14 h-14" />
         )}

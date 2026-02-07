@@ -7,7 +7,6 @@ type GeoItem = {
 };
 
 export async function geocodeLocation(query: string) {
-  console.log(query, "query");
   const res = await axios.get<GeoItem[]>(
     "https://api.openweathermap.org/geo/1.0/direct",
     {

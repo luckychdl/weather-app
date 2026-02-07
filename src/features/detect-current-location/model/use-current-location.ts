@@ -48,7 +48,7 @@ export function useCurrentLocation(auto = true) {
         setStatus("error");
         setError("위치 정보를 가져올 수 없습니다.");
       },
-      { enableHighAccuracy: false, timeout: 8000, maximumAge: 60_000 },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 },
     );
   };
 

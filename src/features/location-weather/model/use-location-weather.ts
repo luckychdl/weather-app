@@ -14,7 +14,6 @@ export function useLocationWeather(locationId: string) {
     enabled: !!query,
     queryFn: () => geocodeLocation(query),
   });
-  console.log(query, geo.data, "geo.data");
   const weather = useWeatherByLatLon(geo.data?.lat, geo.data?.lon);
 
   return { query, geo, weather };
