@@ -5,8 +5,6 @@
 🔗 https://weather.shindongwon.dev
 (AWS Amplify 사용)
 
----
-
 ## 🔐 환경 변수 설정 (Amplify)
 
 본 프로젝트는 OpenWeather API를 사용하므로
@@ -19,16 +17,12 @@ VITE_OPENWEATHER_API_KEY=YOUR_OPENWEATHER_API_KEY
 • OpenWeather에서 발급받은 개인 API Key를 사용해야 합니다.<br/>
 • 해당 값은 보안상 저장소에 포함하지 않았습니다.
 
----
-
 ## 🧪 실행 방법 (로컬)
 
 ```
 npm install
 npm run dev
 ```
-
----
 
 ## ✨ 주요 기능
 
@@ -52,10 +46,7 @@ npm run dev
 • 즐겨찾기 목록은 홈 화면에 카드 형태로 표시<br/>
 • 모바일 환경에서는 가로 스크롤 UI 제공<br/>
 • 즐겨찾기 라벨(이름) 편집 가능<br/>
-• 즐겨찾기에는 좌표(lat/lon)만 저장하고<br/>
-카드 렌더링 시 실시간으로 날씨 정보 요청<br/>
-
----
+• 즐겨찾기에는 좌표(lat/lon)만 저장하고 카드 렌더링 시 실시간으로 날씨 정보 요청<br/>
 
 ## 🧱 프로젝트 구조 (FSD 기반)
 
@@ -82,8 +73,6 @@ src/
 │  ├─ config/
 │  └─ assets/
 ```
-
----
 
 ### 1. Feature-Sliced Design(FSD) 아키텍처 적용
 
