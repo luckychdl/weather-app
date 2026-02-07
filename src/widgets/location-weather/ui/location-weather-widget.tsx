@@ -21,7 +21,8 @@ export function LocationWeatherWidget({ locationId }: Props) {
             toggle({
               id: locationId,
               label: query ?? "",
-              weather: weather.data,
+              lat: geo.data?.lat ?? 0,
+              lon: geo.data?.lon ?? 0,
             })
           }
         >

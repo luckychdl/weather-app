@@ -3,7 +3,6 @@ import { geocodeLocation } from "@/entities/location";
 import { useWeatherByLatLon } from "@/entities/weather";
 
 function toQueryString(locationId: string) {
-  // "서울특별시-성북구-정릉동" -> "서울특별시 성북구 정릉동"
   return locationId.split("-").join(" ");
 }
 

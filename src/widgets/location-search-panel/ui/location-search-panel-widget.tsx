@@ -5,7 +5,6 @@ import { routes } from "@/shared/config";
 export function LocationSearchPanelWidget() {
   const navigate = useNavigate();
   const { keyword, setKeyword, results } = useLocationSearch();
-  console.log(results, "results");
   return (
     <section className="mx-auto max-w-3xl p-4">
       <h2 className="text-lg font-semibold">장소 검색</h2>

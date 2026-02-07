@@ -23,7 +23,7 @@ export function useFavorites() {
       alert("즐겨찾기는 최대 6개까지 등록할 수 있습니다.");
       return;
     }
-    // ✅ localStorage 변경 후 바로 state 갱신 → UI 즉시 반영
+
     setFavorites(getFavorites());
   };
   const toggleEdit = (item: FavoriteLocation) => {

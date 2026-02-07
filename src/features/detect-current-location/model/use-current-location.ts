@@ -1,39 +1,64 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-type Coords = {
-  lat: number;
-  lon: number;
-};
+type Coords = { lat: number; lon: number };
+type Status = "idle" | "loading" | "success" | "error";
 
-type Status = "loading" | "success" | "error";
+const KEY = "last.coords";
 
-export function useCurrentLocation() {
-  // ✅ 동기 판단은 effect 밖에서
-  const isSupported =
-    typeof navigator !== "undefined" && !!navigator.geolocation;
-  // ✅ 초기 상태로 분기
-  const [status, setStatus] = useState<Status>(
-    isSupported ? "loading" : "error",
-  );
-  const [coords, setCoords] = useState<Coords | null>(null);
+function readCache(): Coords | null {
+  try {
+    const raw = localStorage.getItem(KEY);
+    return raw ? (JSON.parse(raw) as Coords) : null;
+  } catch {
+    return null;
+  }
+}
 
-  useEffect(() => {
-    if (!isSupported) return;
+function writeCache(coords: Coords) {
+  localStorage.setItem(KEY, JSON.stringify(coords));
+}
+
+export function useCurrentLocation(auto = true) {
+  const cached = readCache();
+
+  const [status, setStatus] = useState<Status>(cached ? "success" : "idle");
+  const [coords, setCoords] = useState<Coords | null>(cached);
+  const [error, setError] = useState<string | null>(null);
+
+  const requestedRef = useRef(false);
+
+  const request = () => {
+    if (!navigator.geolocation) {
+      setStatus("error");
+      setError("위치 기능을 지원하지 않습니다.");
+      return;
+    }
+
+    setStatus("loading");
+    setError(null);
 
     navigator.geolocation.getCurrentPosition(
       (pos) => {
-        console.log(pos, "pos");
-        setCoords({
-          lat: pos.coords.latitude,
-          lon: pos.coords.longitude,
-        });
+        const next = { lat: pos.coords.latitude, lon: pos.coords.longitude };
+        setCoords(next);
+        writeCache(next);
         setStatus("success");
       },
       () => {
         setStatus("error");
+        setError("위치 정보를 가져올 수 없습니다.");
       },
+      { enableHighAccuracy: false, timeout: 8000, maximumAge: 60_000 },
     );
-  }, [isSupported]);
+  };
 
-  return { status, coords };
+  useEffect(() => {
+    if (!auto) return;
+    if (cached) return;
+    if (requestedRef.current) return;
+    requestedRef.current = true;
+    request();
+  }, [auto]);
+
+  return { status, coords, error, request };
 }

@@ -20,7 +20,7 @@ export async function geocodeLocation(query: string) {
       },
     },
   );
-  console.log(res.data, "res.data");
+
   const first = res.data[0];
   if (!first) throw new Error("좌표를 찾을 수 없습니다.");
 
